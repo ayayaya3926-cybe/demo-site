@@ -758,3 +758,44 @@
   closers.forEach(function(btn){ btn.addEventListener('click', closeModal); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
 })();
+
+// お問い合わせフォーム（モーダル開閉 ＋ Netlifyフォームへ送信）
+(function(){
+  var modal = document.getElementById('contactModal');
+  if(!modal) return;
+  var openers = document.querySelectorAll('.contact-modal-open');
+  var closers = modal.querySelectorAll('[data-contact-close]');
+  var form = modal.querySelector('.contact-form');
+  var status = modal.querySelector('.contact-form__status');
+
+  function openModal(){
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden','false');
+  }
+  function closeModal(){
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden','true');
+  }
+  openers.forEach(function(btn){ btn.addEventListener('click', openModal); });
+  closers.forEach(function(btn){ btn.addEventListener('click', closeModal); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(status){ status.className = 'contact-form__status is-sending'; status.textContent = '送信中…'; }
+      var body = new URLSearchParams(new FormData(form)).toString();
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body
+      }).then(function(res){
+        if(!res.ok) throw new Error('bad status');
+        form.reset();
+        if(status){ status.className = 'contact-form__status is-ok'; status.textContent = '送信しました。ありがとうございます。担当者よりご連絡いたします。'; }
+      }).catch(function(){
+        if(status){ status.className = 'contact-form__status is-error'; status.textContent = '送信に失敗しました。お手数ですが時間をおいて再度お試しください。'; }
+      });
+    });
+  }
+})();
