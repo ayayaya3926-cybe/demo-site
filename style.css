@@ -194,11 +194,6 @@ ul,ol{margin:0;padding:0;list-style:none;}
 .footer__nav a:hover{color:var(--main);}
 .footer__copy{grid-column:1/-1;font-size:.78rem;opacity:.75;border-top:1px solid var(--line);padding-top:18px;}
 
-/* ===== Quick Access ===== */
-.quick-access{position:fixed;right:20px;top:120px;z-index:45;display:flex;flex-direction:column;align-items:center;gap:10px;}
-.quick-access__label{writing-mode:vertical-rl;font-family:Georgia,serif;color:var(--main);font-size:.75rem;letter-spacing:.06em;background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:999px;padding:12px 6px;}
-.quick-access a{display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#62c56f 0%,#12a96f 58%,#8fd66a 100%);color:var(--white);font-size:.74rem;font-weight:700;box-shadow:0 10px 26px rgba(0,122,77,.2);transition:transform .2s ease,background .2s ease;}
-.quick-access a:hover{background:var(--main-dark);transform:translateY(-3px);}
 .floating-cta{position:fixed;right:22px;bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:.5em;background:linear-gradient(135deg,#62c56f 0%,#12a96f 58%,#8fd66a 100%);color:var(--white);font-weight:700;font-size:.92rem;padding:13px 22px;border-radius:999px;box-shadow:0 10px 30px rgba(0,122,77,.34);transition:transform .2s ease,background .2s ease;}
 .floating-cta::before{content:"💬";font-size:1.05em;}
 .floating-cta:hover{background:var(--main-dark);transform:translateY(-3px);}
@@ -232,7 +227,6 @@ ul,ol{margin:0;padding:0;list-style:none;}
   .about{grid-template-columns:1fr;}
   .greeting{grid-template-columns:1fr;gap:32px;}
   .greeting__person{position:static;max-width:280px;margin-inline:auto;}
-  .quick-access{display:none;}
   .footer__inner{grid-template-columns:1fr;}
 }
 
@@ -334,7 +328,6 @@ ul,ol{margin:0;padding:0;list-style:none;}
 .plan:hover,.flow__step:hover,.article__list li:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--accent-2);}
 .info:hover,.greeting__person:hover{box-shadow:var(--shadow);}
 .btn:hover::after,.card:hover .card__more span{animation:arrowNudge .55s ease both;}
-.quick-access a{animation:pulseGlow 3.8s ease-in-out infinite;}
 .floating-cta{animation:pulseGlow 4.2s ease-in-out infinite;}
 
 /* スライドショーも少しリッチに */
@@ -375,7 +368,7 @@ ul,ol{margin:0;padding:0;list-style:none;}
 
 body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 
-.logo__mark,.nav__cta,.btn--primary,.cta,.quick-access a,.floating-cta,.plan__badge,.flow__num{background:var(--brand-grad)!important;}
+.logo__mark,.nav__cta,.btn--primary,.cta,.floating-cta,.plan__badge,.flow__num{background:var(--brand-grad)!important;}
 .header{background:rgba(255,255,255,.72);backdrop-filter:blur(14px);}
 .header.is-scrolled{background:rgba(255,255,255,.94);}
 
@@ -657,7 +650,6 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 .hero__bigword{animation:lineUp .9s cubic-bezier(.22,1,.36,1) both 1.02s!important;}
 
 /* 右の丸アイコンは削除。代わりにSCROLL表示 */
-.quick-access{display:none!important;}
 .scroll-guide{
   position:fixed;
   right:26px;
@@ -916,134 +908,6 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
   }
 }
 
-/* ===== 再修正：波線はJSでSVGを実際に変形させる ===== */
-.section::after{display:none!important;}
-.section{position:relative;overflow:hidden;}
-.section-wave{
-  position:absolute;
-  left:-6%;
-  top:22px;
-  width:112%;
-  height:86px;
-  z-index:0;
-  pointer-events:none;
-  opacity:0;
-  transform:translateY(8px);
-  transition:opacity .3s ease, transform .3s ease;
-}
-.section-wave__path{
-  fill:none;
-  stroke:url(#sectionWaveGradient);
-  stroke-width:2.8;
-  stroke-linecap:round;
-  vector-effect:non-scaling-stroke;
-  filter:drop-shadow(0 4px 8px rgba(15,180,134,.08));
-}
-.section-wave__path--soft{
-  fill:none;
-  stroke:#9be15d;
-  stroke-width:1.4;
-  stroke-linecap:round;
-  opacity:.32;
-  vector-effect:non-scaling-stroke;
-}
-.section.wave-play .section-wave{
-  opacity:.42;
-  transform:translateY(0);
-}
-.section > .container,
-.section > .about,
-.section > .greeting{
-  position:relative;
-  z-index:1;
-}
-@media (max-width:640px){
-  .section-wave{top:10px;height:60px;}
-}
-@media (prefers-reduced-motion: reduce){
-  .section-wave{opacity:.32;transform:none;}
-}
-
-/* ===== 最終修正：波線を“見て分かる強さ”で実際に動かす ===== */
-.section::before,
-.section::after{display:none!important;}
-.section{position:relative;overflow:hidden;}
-.section-wave{
-  position:absolute!important;
-  left:-8%!important;
-  top:18px!important;
-  width:116%!important;
-  height:104px!important;
-  z-index:0!important;
-  pointer-events:none!important;
-  opacity:0!important;
-  transform:translateY(10px) scaleY(.95)!important;
-  transition:opacity .28s ease, transform .28s ease!important;
-}
-.section.wave-play .section-wave{
-  opacity:.58!important;
-  transform:translateY(0) scaleY(1)!important;
-}
-.section.is-wave-animating .section-wave{
-  opacity:.82!important;
-}
-.section-wave__path{
-  fill:none!important;
-  stroke-width:4.4!important;
-  stroke-linecap:round!important;
-  vector-effect:non-scaling-stroke!important;
-  filter:drop-shadow(0 5px 10px rgba(0,190,150,.16))!important;
-}
-.section-wave__path--soft{
-  fill:none!important;
-  stroke:#a7f36a!important;
-  stroke-width:2.2!important;
-  stroke-linecap:round!important;
-  opacity:.42!important;
-  vector-effect:non-scaling-stroke!important;
-}
-.section > .container,
-.section > .about,
-.section > .greeting{position:relative;z-index:1;}
-@media (max-width:640px){.section-wave{top:8px!important;height:76px!important;}}
-@media (prefers-reduced-motion: reduce){.section-wave{opacity:.32!important;transform:none!important;}}
-
-/* ===== 確実版：タイトル上の波線を画面表示時に大きく波打たせて停止 ===== */
-.section::before,
-.section::after{display:none!important;}
-.section{position:relative!important;overflow:hidden!important;}
-.actual-wave-svg{
-  position:absolute!important;
-  left:-10%!important;
-  top:12px!important;
-  width:120%!important;
-  height:126px!important;
-  z-index:0!important;
-  pointer-events:none!important;
-  opacity:.72!important;
-  overflow:visible!important;
-}
-.actual-wave-path{
-  fill:none!important;
-  stroke:url(#actualWaveGradient)!important;
-  stroke-width:4.8!important;
-  stroke-linecap:round!important;
-  vector-effect:non-scaling-stroke!important;
-  filter:drop-shadow(0 6px 13px rgba(0,190,150,.20))!important;
-}
-.actual-wave-soft{
-  fill:none!important;
-  stroke:#a7f36a!important;
-  stroke-width:2.4!important;
-  stroke-linecap:round!important;
-  opacity:.38!important;
-  vector-effect:non-scaling-stroke!important;
-}
-.section > .container,
-.section > .about,
-.section > .greeting{position:relative!important;z-index:1!important;}
-@media (max-width:640px){.actual-wave-svg{top:8px!important;height:88px!important;}}
-
 /* ===== 呼吸感調整：ホバーをゆっくり、波線の最後のカクつき対策 ===== */
 .btn,
 .nav a,
@@ -1054,8 +918,7 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 .flow__step,
 .info,
 .greeting__person,
-.floating-cta,
-.quick-access a{
+.floating-cta{
   transition-duration:.95s!important;
   transition-timing-function:cubic-bezier(.16,1,.3,1)!important;
 }
@@ -1088,7 +951,6 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
   transform:translateY(-5px)!important;
 }
 .floating-cta:hover,
-.quick-access a:hover,
 .btn:hover{
   transform:translateY(-2px)!important;
 }
@@ -1120,19 +982,8 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 .reason::after{z-index:1;transition:opacity 1.05s ease!important;}
 .reason:hover .reason__num{transform:scale(1.08)!important;}
 
-/* 波線：静止形に戻る最後の瞬間が見えないよう、描画を安定化 */
-.actual-wave-svg{
-  transform:translateZ(0)!important;
-  will-change:auto!important;
-}
-.actual-wave-path,
-.actual-wave-soft{
-  transition:none!important;
-}
-
-/* ===== 追加調整：波線をタイトル下線化／理由カード内ライン位置修正／動きをさらにゆっくり ===== */
-.actual-wave-svg,
-.section-wave{display:none!important;}
+.section::before,
+.section::after{display:none!important;}
 
 .section__head{position:relative!important;}
 .title-wave-svg{
@@ -1202,8 +1053,7 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 .flow__step,
 .info,
 .greeting__person,
-.floating-cta,
-.quick-access a{
+.floating-cta{
   transition-duration:1.25s!important;
   transition-timing-function:cubic-bezier(.19,1,.22,1)!important;
 }
@@ -1383,9 +1233,9 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
   transform:translateY(18px) scale(.985);
   animation:heroPhotoCrossFade 18s ease-in-out infinite!important;
 }
-.hero__photo--large{animation-delay:2.15s!important;}
-.hero__photo--small{animation-delay:8.15s!important;}
-.hero__photo--thin{animation-delay:14.15s!important;}
+.hero__photo--large{animation-delay:-1.44s!important;}
+.hero__photo--small{animation-delay:4.56s!important;}
+.hero__photo--thin{animation-delay:10.56s!important;}
 .hero__photo::after{
   background:linear-gradient(180deg,rgba(255,255,255,.03) 35%,rgba(0,111,88,.18))!important;
 }
@@ -1860,23 +1710,6 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 .about{
   grid-template-columns:1fr!important;
 }
-.registry-row{
-  display:grid;
-  grid-template-columns:160px 1fr;
-  min-height:52px;
-  overflow:hidden;
-  border-radius:14px;
-  border:1px solid rgba(0,169,143,.12);
-  background:rgba(234,250,244,.64);
-}
-.registry-value{
-  display:flex;
-  align-items:center;
-  padding:12px 16px;
-  color:#173e35;
-  line-height:1.65;
-  background:rgba(255,255,255,.72);
-}
 .btn--white{
   background:#fff!important;
   color:#008767!important;
@@ -1963,11 +1796,7 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
   line-height:1.8;
   margin-top:18px;
 }
-@media (max-width:900px){
-  .registry-table{grid-template-columns:1fr;}
-}
 @media (max-width:640px){
-  .registry-row{grid-template-columns:110px 1fr;}
   .about__registry{padding:22px 16px;}
   .phone-modal__number{font-size:1.35rem;}
 }
@@ -2033,18 +1862,15 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 .news__title{font-size:1.8rem;font-weight:700;line-height:1.45;color:var(--text);margin:0 0 14px;}
 .news__desc{color:var(--text-sub);font-size:.96rem;line-height:1.85;margin:0 0 16px;}
 .news__wave{display:block;width:150px;height:16px;margin:0 0 26px;opacity:.85;}
-.news__more{display:inline-flex;}
 .news__list{margin:0;padding:0;list-style:none;}
 .news__item{margin:0;}
-.news__link{
+.news__entry{
   display:block;
   padding:20px 10px;
   border-bottom:1px solid var(--line);
-  transition:background .3s ease;
 }
-.news__item:first-child .news__link{padding-top:2px;}
-.news__item:last-child .news__link{border-bottom:none;}
-.news__link:hover{background:var(--main-soft);border-radius:14px;}
+.news__item:first-child .news__entry{padding-top:2px;}
+.news__item:last-child .news__entry{border-bottom:none;}
 .news__meta{display:flex;align-items:center;gap:14px;margin-bottom:9px;}
 .news__date{font-size:.84rem;font-weight:700;letter-spacing:.04em;color:var(--text-sub);}
 .news__tag{
@@ -2054,11 +1880,9 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 .news__tag--info{background:var(--main-soft);color:var(--main-dark);}
 .news__tag--roumu{background:#e2f4ea;color:#0d7a55;}
 .news__tag--josei{background:#eef7dc;color:#5f7d1b;}
-.news__body{display:flex;align-items:center;justify-content:space-between;gap:18px;}
-.news__headline{font-size:1.04rem;font-weight:500;color:var(--text);line-height:1.55;}
-.news__arrow{flex:none;color:var(--main);font-weight:700;transition:transform .25s ease;}
-.news__link:hover .news__headline{color:var(--main-dark);}
-.news__link:hover .news__arrow{transform:translateX(5px);}
+.news__body{display:block;}
+.news__headline{font-size:1.04rem;font-weight:700;color:var(--text);line-height:1.55;margin:0 0 7px;}
+.news__text{max-width:660px;color:var(--text-sub);font-size:.9rem;line-height:1.75;margin:0;}
 
 @media (max-width:900px){
   .news{grid-template-columns:1fr;gap:28px;padding:40px 34px;}
@@ -2066,7 +1890,7 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 @media (max-width:640px){
   .news{padding:28px 20px;border-radius:20px;}
   .news__title{font-size:1.42rem;}
-  .news__body{align-items:flex-start;}
+  .news__entry{padding:18px 4px;}
 }
 
 
@@ -2217,3 +2041,667 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
   .contact-modal__dialog{padding:32px 20px 26px;border-radius:22px;}
   .contact-modal__title{font-size:1.2rem;}
 }
+
+
+/* === 2026-06-24 スマホ：タイトルの泣き別れ調整（PC表示には影響しません） === */
+@media (max-width:640px){
+  /* ヒーロー：1フレーズ＝1行に収め、末尾文字が落ちないように */
+  .hero__title{
+    font-size:1.62rem!important;
+    line-height:1.5!important;
+    letter-spacing:.01em!important;
+  }
+  .hero__title span{
+    display:block!important;
+    white-space:normal!important;
+  }
+  /* セクション見出し：短い見出しは1行に。長い見出しは均等2行に */
+  .section__title{
+    font-size:1.35rem!important;
+    line-height:1.55!important;
+    letter-spacing:.01em!important;
+    text-wrap:balance;
+  }
+  /* CTA見出し：均等2行で末尾文字の孤立を防ぐ */
+  .cta__title{
+    font-size:1.6rem!important;
+    line-height:1.5!important;
+    letter-spacing:.01em!important;
+    text-wrap:balance;
+  }
+  /* 記事の大見出しは括弧前などの自然な改行を維持（balanceでカタカナ語が割れるのを防ぐ） */
+  .article__title{letter-spacing:.01em!important;}
+  /* 記事の中見出し：均等割りで末尾文字の孤立を防ぐ */
+  .article h2,
+  .article h3{
+    letter-spacing:.01em!important;
+    text-wrap:balance;
+  }
+  .article h2{font-size:1.42rem!important;line-height:1.55!important;}
+  /* モーダル見出し */
+  .phone-modal__title,
+  .contact-modal__title{
+    letter-spacing:.01em!important;
+    text-wrap:balance;
+  }
+}
+
+/* === Payroll service LP === */
+:is(.payroll-page,.roumu-page,.soumu-page) .article{
+  max-width:900px;
+}
+:is(.payroll-page,.roumu-page,.soumu-page) .article__title{
+  max-width:760px;
+}
+:is(.payroll-page,.roumu-page,.soumu-page) .article__lead{
+  margin-bottom:30px;
+  padding:34px clamp(24px,4vw,42px);
+}
+:is(.payroll-page,.roumu-page,.soumu-page) .article__lead::after{
+  right:-70px;
+  bottom:-80px;
+  width:230px;
+  height:230px;
+  pointer-events:none;
+}
+.payroll-hero__copy{
+  position:relative;
+  z-index:1;
+  max-width:690px;
+  margin-bottom:12px!important;
+}
+.payroll-hero__actions{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:14px 22px;
+  margin-top:26px;
+}
+.payroll-hero__area{
+  position:relative;
+  z-index:1;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:18px 0 0!important;
+  color:var(--main-dark);
+  font-size:.83rem;
+  font-weight:700;
+}
+.payroll-hero__area::before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--main);
+  box-shadow:0 0 0 5px rgba(18,169,111,.12);
+}
+.payroll-text-link,
+.payroll-inline-link a{
+  color:var(--main-dark);
+  font-weight:700;
+  text-decoration:underline;
+  text-decoration-color:var(--accent-2);
+  text-decoration-thickness:2px;
+  text-underline-offset:5px;
+}
+.payroll-text-link:hover,
+.payroll-inline-link a:hover{
+  color:var(--main);
+  text-decoration-color:var(--main);
+}
+.payroll-text-link:focus-visible,
+.payroll-inline-link a:focus-visible,
+.payroll-toc a:focus-visible,
+.payroll-faq summary:focus-visible{
+  outline:3px solid rgba(18,169,111,.32);
+  outline-offset:4px;
+  border-radius:4px;
+}
+.payroll-toc{
+  margin:0 0 58px;
+  padding:22px 26px 24px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.78);
+}
+.payroll-toc__title{
+  margin:0 0 12px!important;
+  color:var(--main-dark);
+  font-size:.9rem;
+  font-weight:700;
+}
+.payroll-toc__list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px 28px;
+  margin:0;
+  padding:0;
+  list-style:none;
+  counter-reset:payroll-toc;
+}
+.payroll-toc__list li{
+  counter-increment:payroll-toc;
+}
+.payroll-toc__list a{
+  display:flex;
+  gap:10px;
+  color:var(--text-sub);
+  font-size:.9rem;
+  line-height:1.65;
+}
+.payroll-toc__list a::before{
+  content:counter(payroll-toc,decimal-leading-zero);
+  flex:none;
+  color:var(--main);
+  font-family:Georgia,serif;
+  font-size:.76rem;
+  font-weight:700;
+  letter-spacing:.06em;
+}
+.payroll-toc__list a:hover{
+  color:var(--main-dark);
+}
+.payroll-section{
+  scroll-margin-top:100px;
+}
+.payroll-section__kicker{
+  margin:54px 0 -38px!important;
+  color:var(--main);
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.08em;
+}
+.payroll-problem-list{
+  margin-bottom:24px;
+}
+.payroll-benefits{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.payroll-benefit{
+  padding:24px 22px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--white);
+}
+.payroll-benefit__label{
+  display:inline-block;
+  margin:0 0 8px!important;
+  padding:3px 10px;
+  border-radius:999px;
+  background:var(--main-soft);
+  color:var(--main-dark);
+  font-size:.76rem;
+  font-weight:700;
+}
+:is(.payroll-page,.roumu-page,.soumu-page) .payroll-benefit h3{
+  margin:0 0 12px;
+  font-size:1.05rem;
+  line-height:1.6;
+}
+.payroll-benefit p:last-child,
+.payroll-service p,
+.payroll-strength p{
+  margin:0!important;
+  color:var(--text-sub);
+  font-size:.9rem;
+  line-height:1.85;
+}
+.payroll-services{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  margin:26px 0 20px;
+}
+.payroll-services::before{
+  content:"";
+  position:absolute;
+  top:33px;
+  bottom:33px;
+  left:31px;
+  width:2px;
+  background:linear-gradient(180deg,var(--main),var(--accent));
+}
+.payroll-service{
+  position:relative;
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:20px;
+  padding:20px 0;
+}
+.payroll-service__num{
+  position:relative;
+  z-index:1;
+  display:grid;
+  place-items:center;
+  width:64px;
+  height:64px;
+  border:6px solid var(--bg);
+  border-radius:50%;
+  background:var(--main);
+  color:var(--white);
+  font-family:Georgia,serif;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.05em;
+}
+:is(.payroll-page,.roumu-page,.soumu-page) .payroll-service h3{
+  margin:4px 0 6px;
+}
+.payroll-note{
+  padding:14px 18px;
+  border-radius:12px;
+  background:var(--main-soft);
+  color:var(--text-sub);
+  font-size:.86rem;
+}
+.payroll-strengths{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px;
+  overflow:hidden;
+  margin-top:24px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--line);
+}
+.payroll-strength{
+  padding:28px 24px;
+  background:var(--white);
+}
+:is(.payroll-page,.roumu-page,.soumu-page) .payroll-strength h3{
+  margin:0 0 12px;
+  font-size:1.04rem;
+  line-height:1.6;
+}
+.payroll-inline-link{
+  margin-top:18px!important;
+  text-align:right;
+  font-size:.9rem;
+}
+.payroll-flow{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  margin:28px 0 0;
+  padding:0;
+  list-style:none;
+}
+.payroll-flow__item{
+  position:relative;
+  padding:0 24px;
+  text-align:center;
+}
+.payroll-flow__item:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  top:25px;
+  right:-18px;
+  width:36px;
+  height:8px;
+  border-top:2px solid var(--accent);
+  border-radius:50%;
+  transform:rotate(4deg);
+}
+.payroll-flow__num{
+  display:grid;
+  place-items:center;
+  width:52px;
+  height:52px;
+  margin:0 auto 16px;
+  border-radius:50%;
+  background:var(--main-soft);
+  color:var(--main-dark);
+  font-family:Georgia,serif;
+  font-size:1.1rem;
+  font-weight:700;
+}
+:is(.payroll-page,.roumu-page,.soumu-page) .payroll-flow h3{
+  margin:0 0 10px;
+  font-size:1rem;
+}
+.payroll-flow p{
+  margin:0!important;
+  color:var(--text-sub);
+  font-size:.86rem;
+  line-height:1.8;
+}
+.payroll-price{
+  display:grid;
+  grid-template-columns:minmax(190px,.8fr) 1.6fr auto;
+  align-items:center;
+  gap:28px;
+  margin-top:24px;
+  padding:28px 30px;
+  border:1px solid var(--accent-2);
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--white),var(--main-soft));
+}
+.payroll-price p{
+  margin:0!important;
+}
+.payroll-price__label{
+  color:var(--main-dark);
+  font-weight:700;
+}
+.payroll-price__value{
+  color:var(--main);
+  font-size:1.35rem;
+  font-weight:700;
+}
+.payroll-price__value span{
+  margin-right:7px;
+  color:var(--text-sub);
+  font-size:.75rem;
+  font-weight:500;
+}
+.payroll-faq__items{
+  margin-top:24px;
+  border-top:1px solid var(--line);
+}
+.payroll-faq details{
+  border-bottom:1px solid var(--line);
+}
+.payroll-faq summary{
+  position:relative;
+  padding:20px 48px 20px 42px;
+  color:var(--main-dark);
+  font-weight:700;
+  line-height:1.65;
+  cursor:pointer;
+  list-style:none;
+}
+.payroll-faq summary::-webkit-details-marker{
+  display:none;
+}
+.payroll-faq summary::before{
+  content:"Q";
+  position:absolute;
+  top:20px;
+  left:8px;
+  color:var(--main);
+  font-family:Georgia,serif;
+  font-size:1.05rem;
+}
+.payroll-faq summary::after{
+  content:"＋";
+  position:absolute;
+  top:19px;
+  right:10px;
+  color:var(--main);
+  font-size:1.15rem;
+  transition:transform .2s ease;
+}
+.payroll-faq details[open] summary::after{
+  transform:rotate(45deg);
+}
+.payroll-faq details p{
+  margin:0 42px 20px!important;
+  color:var(--text-sub);
+}
+.payroll-mini-cta{
+  position:relative;
+  overflow:hidden;
+  margin-top:68px;
+  padding:42px clamp(24px,5vw,50px);
+  border-radius:26px;
+  background:linear-gradient(135deg,#087a59,#12a96f 58%,#8fd66a);
+  color:var(--white);
+  text-align:center;
+}
+.payroll-mini-cta::before{
+  content:"";
+  position:absolute;
+  top:-70px;
+  right:-35px;
+  width:200px;
+  height:200px;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:50%;
+}
+.payroll-mini-cta__eyebrow{
+  position:relative;
+  margin:0 0 8px!important;
+  font-family:Georgia,serif;
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  opacity:.86;
+}
+:is(.payroll-page,.roumu-page,.soumu-page) .article .payroll-mini-cta h2{
+  position:relative;
+  margin:0 0 12px;
+  padding:0;
+  color:var(--white);
+  font-size:clamp(1.35rem,2.7vw,1.8rem);
+}
+:is(.payroll-page,.roumu-page,.soumu-page) .article .payroll-mini-cta h2::before{
+  display:none;
+}
+.payroll-mini-cta > p:not(.payroll-mini-cta__eyebrow){
+  position:relative;
+  margin-bottom:22px;
+}
+.payroll-mini-cta .btn{
+  position:relative;
+  border:1px solid rgba(255,255,255,.7);
+  background:var(--white)!important;
+  color:var(--main-dark);
+}
+
+@media (max-width:800px){
+  .payroll-benefits,
+  .payroll-strengths{
+    grid-template-columns:1fr;
+  }
+  .payroll-flow{
+    grid-template-columns:1fr;
+    gap:24px;
+  }
+  .payroll-flow__item{
+    display:grid;
+    grid-template-columns:52px 1fr;
+    gap:18px;
+    padding:0;
+    text-align:left;
+  }
+  .payroll-flow__num{
+    margin:0;
+  }
+  .payroll-flow__item:not(:last-child)::after{
+    top:49px;
+    right:auto;
+    bottom:-28px;
+    left:25px;
+    width:2px;
+    height:32px;
+    border:0;
+    background:var(--accent);
+    transform:none;
+  }
+  .payroll-price{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+}
+
+@media (max-width:640px){
+  :is(.payroll-page,.roumu-page,.soumu-page) .article{
+    padding-top:38px;
+  }
+  :is(.payroll-page,.roumu-page,.soumu-page) .article__lead{
+    padding:26px 20px;
+    border-radius:20px;
+  }
+  .payroll-hero__actions{
+    align-items:stretch;
+    flex-direction:column;
+  }
+  .payroll-hero__actions .btn{
+    width:100%;
+  }
+  .payroll-toc{
+    padding:20px;
+  }
+  .payroll-toc__list{
+    grid-template-columns:1fr;
+  }
+  .payroll-section__kicker{
+    margin-top:46px!important;
+    margin-bottom:-34px!important;
+    line-height:1.7;
+  }
+  .payroll-service{
+    grid-template-columns:52px 1fr;
+    gap:14px;
+  }
+  .payroll-service__num{
+    width:52px;
+    height:52px;
+    border-width:5px;
+  }
+  .payroll-services::before{
+    top:28px;
+    bottom:28px;
+    left:25px;
+  }
+  .payroll-price{
+    padding:24px 20px;
+  }
+  .payroll-faq summary{
+    padding-left:34px;
+    padding-right:38px;
+  }
+  .payroll-faq summary::before{
+    left:2px;
+  }
+  .payroll-faq details p{
+    margin-right:8px!important;
+    margin-left:34px!important;
+  }
+  .payroll-mini-cta{
+    margin-top:54px;
+    padding:34px 20px;
+    border-radius:20px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .payroll-faq summary::after{
+    transition:none;
+  }
+}
+
+/* 個人情報保護方針・お問い合わせ前の確認 */
+.privacy-policy{max-width:820px;margin:0 auto;padding:28px 0 80px;overflow-wrap:anywhere;}
+.privacy-policy__eyebrow{color:var(--main-dark);font-size:.85rem;font-weight:700;letter-spacing:.08em;}
+.privacy-policy h1{font-size:clamp(1.6rem,4.8vw,2.5rem);line-height:1.5;margin:10px 0 26px;}
+.privacy-policy__intro{font-size:1.02rem;}
+.privacy-policy section{margin-top:36px;}
+.privacy-policy h2{font-size:clamp(1.1rem,3.5vw,1.35rem);line-height:1.65;padding-bottom:10px;margin-bottom:16px;border-bottom:1px solid var(--line);}
+.privacy-policy p + p{margin-top:14px;}
+.privacy-policy ul{list-style:disc;padding-left:1.4em;margin:16px 0;}
+.privacy-policy li + li{margin-top:10px;}
+.privacy-policy a:not(.btn),.contact-form__privacy a{text-decoration:underline;text-underline-offset:.2em;color:var(--main-dark);}
+.privacy-policy__notice{padding:18px 22px;border-left:3px solid var(--main);background:var(--sub);}
+.privacy-policy__details > div{display:grid;grid-template-columns:6em 1fr;gap:18px;padding:12px 0;border-bottom:1px solid var(--line);}
+.privacy-policy__details dt{font-weight:700;}
+.privacy-policy__date{margin:36px 0 24px;color:var(--text-sub);font-size:.9rem;}
+.contact-form__privacy{margin:8px 0 22px;font-size:.85rem;line-height:1.85;color:var(--text);}
+.contact-form__privacy p + p{margin-top:8px;}
+.contact-form__consent{display:flex;align-items:flex-start;gap:10px;margin-top:16px;cursor:pointer;}
+.contact-form__consent input{flex:none;width:20px;height:20px;margin:3px 0 0;accent-color:var(--main-dark);}
+.contact-form__consent input:focus-visible,.contact-form__privacy a:focus-visible,.privacy-policy a:focus-visible{outline:3px solid var(--main-dark);outline-offset:4px;}
+@media(max-width:480px){
+  .privacy-policy__details > div{grid-template-columns:1fr;gap:4px;}
+  .privacy-policy{padding-bottom:48px;}
+}
+/* 2026-09-10 実ロゴ。画像の縦横比と原画を保持 */
+.office-logo{display:block;flex:none;width:48px;height:50px;object-fit:contain;}
+.portrait-break,.portrait-only{display:none;}
+
+/* スマートフォン縦長表示だけの調整 */
+@media (max-width:640px) and (orientation:portrait){
+  .portrait-break{display:block;}
+  .portrait-only{display:inline;}
+  .portrait-hide{display:none;}
+  .header .logo{gap:8px;}
+  .header .office-logo{width:40px;height:42px;}
+  .header .logo__text{display:block;font-size:clamp(.72rem,3.1vw,.86rem);line-height:1.5;white-space:nowrap;}
+  .footer__brand{align-items:center;line-height:1.65;}
+  .hero__body{display:flex;flex-direction:column;}
+  .hero__body .hero__lead{order:0;}
+  .hero__body .hero__title{
+    order:1;font-size:clamp(1.85rem,8.2vw,2.25rem)!important;
+    line-height:1.48!important;letter-spacing:.015em!important;
+    overflow:visible;margin-bottom:22px!important;
+  }
+  .hero__body .hero__title > span{
+    display:block!important;white-space:nowrap!important;
+    opacity:1;transform:none;
+    animation:portrait-title-in .85s cubic-bezier(.16,1,.3,1) both!important;
+  }
+  .hero__body .hero__title > span:nth-child(2){
+    color:var(--main-dark);
+    text-decoration:underline;text-decoration-color:var(--accent-2);
+    text-decoration-thickness:.12em;text-underline-offset:.15em;
+    animation-delay:.18s!important;
+  }
+  .hero__body .hero__message{order:2;margin-bottom:18px;}
+  .hero__message .hero__msgline:nth-child(5),
+  .hero__message .hero__msgline:nth-child(6){
+    display:inline!important;opacity:1!important;transform:none!important;animation:none!important;
+  }
+  .hero__message .hero__msgline:nth-child(5)::before{content:"";display:block;margin-top:12px;}
+  .hero__body .hero__points{order:3;margin-bottom:20px!important;animation-delay:.35s!important;}
+  .hero__body .hero__actions{order:4;margin:0!important;gap:12px!important;animation-delay:.45s!important;}
+  .hero__actions .btn{width:100%!important;justify-content:space-between;}
+  .news__desc br{display:none;}
+  #reasons .section__title,#plans .section__title,#about .section__title{text-wrap:initial;}
+  #about .about{gap:12px!important;row-gap:12px!important;}
+  #about .about__body{margin-bottom:0!important;padding-bottom:0!important;}
+  #about .about__text:last-child{margin-bottom:0!important;}
+  #about .about__info{margin-top:0!important;padding-top:0!important;}
+  #about .info{margin-top:0!important;}
+  .greeting__sign{font-size:clamp(.8rem,3.45vw,1rem);line-height:1.85;}
+}
+@keyframes portrait-title-in{
+  from{opacity:0;transform:translateY(12px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@media (max-width:640px) and (orientation:portrait) and (prefers-reduced-motion:reduce){
+  .hero__body .hero__title,.hero__body .hero__title > span,
+  .hero__body .hero__actions,.hero__body .hero__points,
+  .hero__message .hero__msgline{
+    animation:none!important;opacity:1!important;transform:none!important;
+  }
+}
+@media (max-width:640px) and (orientation:portrait){
+  .floating-cta.hero-in-view{opacity:0!important;visibility:hidden;pointer-events:none;}
+}
+/* 最初の相談写真は初期表示から見せる。動きを抑える設定でも同じ写真を表示。 */
+@media (prefers-reduced-motion: reduce){
+  .hero__photo{animation:none!important;opacity:0!important;transform:none!important;filter:none!important;}
+  .hero__photo--large{opacity:1!important;}
+  .hero__photo img{animation:none!important;}
+}
+
+/* MESSAGE：相談風景の二人を中心に拡大表示 */
+.greeting__person.greeting__photoOnly{overflow:hidden!important;border-radius:28px!important;}
+.greeting__photoOnly img{object-position:48% 40%!important;transform:scale(1.25);transform-origin:48% 38%;opacity:1!important;}
+@media(max-width:640px){.greeting__person.greeting__photoOnly{border-radius:22px!important;}}
+
+/* メールでの相談・コピー可能な宛先 */
+.contact-email{max-width:620px;margin:26px auto 0;text-align:center;line-height:1.8;}
+.contact-email__address{display:block;margin:6px 0 12px;font-size:clamp(1rem,4.5vw,1.35rem);font-weight:700;text-decoration:underline;text-underline-offset:4px;user-select:text;overflow-wrap:anywhere;}
+.contact-email__copy{padding:9px 18px;border:1px solid currentColor;border-radius:999px;background:transparent;color:inherit;font:inherit;cursor:pointer;}
+.contact-email__copy:focus-visible{outline:3px solid currentColor;outline-offset:4px;}
+.contact-email__status{min-height:1.8em;font-size:.86rem;margin-top:6px;}
+.contact-email__note{font-size:.83rem;margin-top:8px;line-height:1.8;}
+.contact-email__note a{text-decoration:underline;}
