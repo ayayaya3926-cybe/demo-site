@@ -1231,11 +1231,11 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
   opacity:0;
   overflow:hidden!important;
   transform:translateY(18px) scale(.985);
-  animation:heroPhotoCrossFade 18s ease-in-out infinite!important;
+  animation:heroPhotoCrossFade 9s ease-in-out infinite!important;
 }
-.hero__photo--large{animation-delay:-1.44s!important;}
-.hero__photo--small{animation-delay:4.56s!important;}
-.hero__photo--thin{animation-delay:10.56s!important;}
+.hero__photo--large{animation-delay:-0.72s!important;}
+.hero__photo--small{animation-delay:2.28s!important;}
+.hero__photo--thin{animation-delay:5.28s!important;}
 .hero__photo::after{
   background:linear-gradient(180deg,rgba(255,255,255,.03) 35%,rgba(0,111,88,.18))!important;
 }
@@ -2685,7 +2685,7 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 @media (max-width:640px) and (orientation:portrait){
   .floating-cta.hero-in-view{opacity:0!important;visibility:hidden;pointer-events:none;}
 }
-/* 最初の相談写真は初期表示から見せる。動きを抑える設定でも同じ写真を表示。 */
+/* 最初の入口写真は初期表示から見せる。動きを抑える設定でも同じ写真を表示。 */
 @media (prefers-reduced-motion: reduce){
   .hero__photo{animation:none!important;opacity:0!important;transform:none!important;filter:none!important;}
   .hero__photo--large{opacity:1!important;}
