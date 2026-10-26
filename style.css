@@ -2685,11 +2685,20 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 @media (max-width:640px) and (orientation:portrait){
   .floating-cta.hero-in-view{opacity:0!important;visibility:hidden;pointer-events:none;}
 }
-/* 最初の入口写真は初期表示から見せる。動きを抑える設定でも同じ写真を表示。 */
-@media (prefers-reduced-motion: reduce){
-  .hero__photo{animation:none!important;opacity:0!important;transform:none!important;filter:none!important;}
-  .hero__photo--large{opacity:1!important;}
-  .hero__photo img{animation:none!important;}
+/* トップ画像：入口 → 事務所内 → 外観。3秒間隔、ぼかしながらフェード。 */
+.hero .hero__photo{
+  animation:heroPhotoSoftFade 9s linear infinite!important;
+  transform:none!important;
+  will-change:opacity,filter;
+}
+.hero .hero__photo--large{animation-delay:-.75s!important;}
+.hero .hero__photo--small{animation-delay:2.25s!important;}
+.hero .hero__photo--thin{animation-delay:5.25s!important;}
+.hero .hero__photo img{animation:none!important;transform:none!important;}
+@keyframes heroPhotoSoftFade{
+  0%{opacity:0;filter:blur(8px);}
+  8.333%,33.333%{opacity:1;filter:blur(0);}
+  41.667%,100%{opacity:0;filter:blur(8px);}
 }
 
 /* MESSAGE：相談風景の二人を中心に拡大表示 */
@@ -2705,3 +2714,47 @@ body{background:linear-gradient(180deg,#ffffff 0%,#f8fffa 42%,#f3fbf2 100%);}
 .contact-email__status{min-height:1.8em;font-size:.86rem;margin-top:6px;}
 .contact-email__note{font-size:.83rem;margin-top:8px;line-height:1.8;}
 .contact-email__note a{text-decoration:underline;}
+/* 2026-10-26: 料金を一時非表示。将来の再掲載用にHTMLは保持。 */
+[data-pricing-hidden][hidden]{display:none!important;}
+.cta__estimate{margin:18px 0 24px;line-height:1.9;}
+/* 古い複数の登場アニメーションを解除し、上から順に表示する。 */
+.hero .hero__body, .hero .hero__body > *, .hero .hero__body .hero__lead span,
+.hero .hero__body .hero__title > span, .hero .hero__body .hero__msgline,
+.hero .hero__body .hero__points li, .hero .hero__body .hero__actions .btn{
+  animation:none!important;opacity:1!important;transform:none!important;filter:none!important;
+}
+.hero .hero__body .hero__lead,
+.hero .hero__body .hero__title > span,
+.hero .hero__body .hero__msgline,
+.hero .hero__body .hero__actions,
+.hero .hero__body .hero__points{
+  animation:none!important;
+}
+.hero .hero__body .hero__lead{--hero-delay:0s;margin-bottom:22px!important;}
+.hero .hero__body .hero__title{margin-bottom:24px!important;}
+.hero .hero__body .hero__title > span:nth-child(1){--hero-delay:.2s;}
+.hero .hero__body .hero__title > span:nth-child(2){--hero-delay:.4s;}
+.hero .hero__body .hero__message{line-height:1.85!important;margin-bottom:24px!important;}
+.hero .hero__body .hero__msgline:nth-child(1){--hero-delay:.65s;}
+.hero .hero__body .hero__msgline:nth-child(2){--hero-delay:.8s;}
+.hero .hero__body .hero__msgline:nth-child(3){--hero-delay:.95s;}
+.hero .hero__body .hero__msgline:nth-child(4){--hero-delay:1.1s;}
+.hero .hero__body .hero__msgline:nth-child(5){--hero-delay:1.3s;margin-top:16px;}
+.hero .hero__body .hero__msgline:nth-child(6){--hero-delay:1.45s;}
+.hero .hero__body .hero__actions{--hero-delay:1.65s;margin-bottom:22px!important;}
+.hero .hero__body .hero__points{--hero-delay:1.85s;}
+@keyframes heroOrderedReveal{from{opacity:0;}to{opacity:1;}}
+@media(max-width:640px) and (orientation:portrait){
+  .hero .hero__body .hero__points{--hero-delay:1.65s;margin-bottom:22px!important;}
+  .hero .hero__body .hero__actions{--hero-delay:1.85s;}
+}
+/* OSの動作軽減設定でも写真は循環。位置移動やズームは行わない。 */
+.hero .hero__visual .hero__photo{
+  animation:none!important;transform:none!important;opacity:0!important;filter:blur(8px)!important;
+  transition:opacity .75s ease,filter .75s ease!important;pointer-events:none;
+}
+.hero .hero__visual .hero__photo.is-active{opacity:1!important;filter:blur(0)!important;}
+.hero .hero__visual .hero__photo img{animation:none!important;transform:none!important;}
+
+.hero .hero__body .hero-reveal-item:not(.is-revealed){animation:none!important;opacity:0!important;transition:none!important;}
+.hero .hero__body .hero-reveal-item.is-revealed{opacity:1!important;transition:opacity .55s ease!important;}

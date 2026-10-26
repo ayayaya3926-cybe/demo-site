@@ -283,7 +283,7 @@ document.querySelectorAll('[data-copy-email]').forEach(function(button){
     var box=button.closest('.contact-email');
     var status=box.querySelector('.contact-email__status');
     try{
-      await navigator.clipboard.writeText('info@yahaba-sharoushi.com');
+      await navigator.clipboard.writeText('takehana-sr@yahaba-sharoushi.com');
       status.textContent='メールアドレスをコピーしました。';
     }catch(error){
       var selection=window.getSelection();
@@ -294,3 +294,36 @@ document.querySelectorAll('[data-copy-email]').forEach(function(button){
     }
   });
 });
+// トップ写真：入口 → 事務所内 → 建物外観。3秒ごとに切り替える。
+(function(){
+  var slides=Array.from(document.querySelectorAll('.hero__photo'));
+  if(slides.length<2) return;
+  var current=0, timer=null;
+  function show(index){
+    slides.forEach(function(slide,i){
+      slide.classList.toggle('is-active',i===index);
+      slide.setAttribute('aria-hidden',i===index?'false':'true');
+    });
+    current=index;
+  }
+  function next(){
+    for(var step=1;step<slides.length;step++){
+      var index=(current+step)%slides.length;
+      var img=slides[index].querySelector('img');
+      if(img.complete && img.naturalWidth>0){show(index);break;}
+    }
+  }
+  function start(){clearInterval(timer);if(!document.hidden) timer=setInterval(next,3000);}
+  show(0);start();
+  document.addEventListener('visibilitychange',start);
+})();
+
+// 各行の表示順を統一。モバイルは実際の配置順にボタンと特長を表示。
+(function(){
+  var items=document.querySelectorAll('.hero__lead, .hero__title > span, .hero__msgline, .hero__actions, .hero__points');
+  items.forEach(function(item){
+    item.classList.add('hero-reveal-item');
+    var delay=parseFloat(getComputedStyle(item).getPropertyValue('--hero-delay'))||0;
+    setTimeout(function(){item.classList.add('is-revealed');},50+delay*1000);
+  });
+})();
