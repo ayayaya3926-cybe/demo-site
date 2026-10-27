@@ -283,7 +283,7 @@ document.querySelectorAll('[data-copy-email]').forEach(function(button){
     var box=button.closest('.contact-email');
     var status=box.querySelector('.contact-email__status');
     try{
-      await navigator.clipboard.writeText('takehana-sr@yahaba-sharoushi.com');
+      await navigator.clipboard.writeText('info@yahaba-sharoushi.com');
       status.textContent='メールアドレスをコピーしました。';
     }catch(error){
       var selection=window.getSelection();
